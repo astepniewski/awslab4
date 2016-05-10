@@ -1,8 +1,10 @@
 {	"expiration" : {"day":1},
 	"conditions": [ ["starts-with", "$key", "stepniewski.arkadiusz/"],
-    				 {"bucket": "stepniewski-lab4"}, 
+    				 {"x-amz-meta-name": "stepniewski arkadiusz"},
+					 {"x-amz-meta-computer": "localhost"},
+					 {"bucket": "stepniewski-lab4"},
     				 {"acl": "private"},
-    				 {"success_action_redirect": "http://localhost:8080/success"},   
+    				 {"success_action_redirect": "http://localhost:8080/s3digest"},   
     				 ["content-length-range", 0, 1048576]
     				]   
 }

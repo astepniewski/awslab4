@@ -8,9 +8,6 @@ var INDEX_TEMPLATE = "index.ejs";
 
 
 var task = function(request, callback){
-
-	var myIp = request.connection.remoteAddress;
-
 	//1. load configuration
 	var awsConfig = helpers.readJSONFile(AWS_CONFIG_FILE);
 	var policyData = helpers.readJSONFile(POLICY_FILE);

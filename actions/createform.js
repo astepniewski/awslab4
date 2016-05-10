@@ -8,6 +8,9 @@ var INDEX_TEMPLATE = "index.ejs";
 
 
 var task = function(request, callback){
+
+	var myIp = request.connection.remoteAddress;
+
 	//1. load configuration
 	var awsConfig = helpers.readJSONFile(AWS_CONFIG_FILE);
 	var policyData = helpers.readJSONFile(POLICY_FILE);
@@ -17,10 +20,14 @@ var task = function(request, callback){
 
 	//3. generate form fields for S3 POST
 	var s3Form = new S3Form(policy);
-	//4. get bucket name
 	
+	//4. get bucket name
+	var bucektName = policy.getConditionValueByKey("bucket");
+	
+	var fields = s3Form.generateS3FormFields();
+	s3Form.addS3CredientalsFields(fields, awsConfig);
 
-	callback(null, {template: INDEX_TEMPLATE, params:{fields:[], bucket:""}});
+	callback(null, {template: INDEX_TEMPLATE, params:{fields:fields, bucket:bucektName}});
 }
 
 exports.action = task;
